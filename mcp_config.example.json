@@ -1,0 +1,24 @@
+{
+    "mcpServers": {
+        "notebooklm_work": {
+            "command": "C:/ruta/a/tu/proyecto/.venv/Scripts/python.exe",
+            "args": [
+                "-m",
+                "notebooklm_tools.mcp.server"
+            ],
+            "env": {
+                "NLM_PROFILE": "work"
+            }
+        },
+        "notebooklm_personal": {
+            "command": "C:/ruta/a/tu/proyecto/.venv/Scripts/python.exe",
+            "args": [
+                "-m",
+                "notebooklm_tools.mcp.server"
+            ],
+            "env": {
+                "NLM_PROFILE": "personal"
+            }
+        }
+    }
+}

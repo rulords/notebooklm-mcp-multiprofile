@@ -1,0 +1,65 @@
+# ============================================================
+# CREDENCIALES Y SESIONES - NUNCA SUBIR A GITHUB
+# ============================================================
+
+# Archivos de cookies (pueden contener sesiones activas de Google)
+*_cookies.txt
+*_cookies.json
+cookies.txt
+cookies.json
+
+# Perfiles de autenticación del MCP (contienen tokens de sesión)
+# Estos viven en ~/.notebooklm-mcp-cli/ fuera del repo, pero por si acaso:
+profiles/
+chrome-profiles/
+auth.json
+*.auth.json
+
+# Variables de entorno con credenciales
+.env
+.env.local
+.env.*.local
+
+# ============================================================
+# ENTORNO VIRTUAL DE PYTHON
+# ============================================================
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================================
+# ARCHIVOS TEMPORALES Y DE SISTEMA
+# ============================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# ============================================================
+# ARCHIVOS DE CONFIGURACIÓN PERSONAL (usar los .example)
+# ============================================================
+mcp_config.json
+# El archivo de ejemplo SÍ se sube:
+# mcp_config.example.json  <-- este NO se ignora

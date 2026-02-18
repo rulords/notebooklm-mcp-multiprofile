@@ -1,0 +1,12 @@
+# NotebookLM MCP - Multi-Profile Setup
+# Instalar con: pip install -r requirements.txt
+
+# Motor principal del MCP (versión con set completo de ~50 herramientas)
+notebooklm-mcp-cli==0.2.7
+
+# Cliente HTTP para validación de cookies
+httpx>=0.27.0
+
+# Nota: setuptools es necesario en Python 3.12+ para compatibilidad con
+# undetected-chromedriver (que es dependencia de notebooklm-mcp-cli)
+setuptools>=70.0.0
