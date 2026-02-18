@@ -83,6 +83,7 @@ python verify_profile.py
 | [docs/AUTHENTICATION.md](docs/AUTHENTICATION.md) | Cómo obtener e inyectar cookies desde Chrome |
 | [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | Configurar el MCP en cada cliente AI |
 | [docs/AI_IMPLEMENTATION_GUIDE.md](docs/AI_IMPLEMENTATION_GUIDE.md) | **Para agentes AI**: guía completa de implementación paso a paso |
+| [docs/SKILL.md](docs/SKILL.md) | **Para agentes AI**: instrucciones detalladas de orquestación y workflows |
 
 ---
 
