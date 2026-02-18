@@ -25,19 +25,20 @@ Convierte NotebookLM en un conjunto de ~50 herramientas que tu IA puede usar dir
 
 ## Instalación rápida
 
-### 1. Clonar y crear entorno virtual
+### 1. Clonar e Instalar
 
 ```bash
-git clone https://github.com/tu-usuario/notebooklm-mcp-multiprofile.git
+git clone https://github.com/rulords/notebooklm-mcp-multiprofile.git
 cd notebooklm-mcp-multiprofile
 
+# Windows (Recomendado)
+Double click en setup.bat
+# O via Terminal: .\setup.bat
+
+# macOS / Linux (Manual)
 python -m venv .venv
-
-# Windows
-.venv\Scripts\pip install -r requirements.txt
-
-# macOS / Linux
-.venv/bin/pip install -r requirements.txt
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 ### 2. Configurar autenticación
