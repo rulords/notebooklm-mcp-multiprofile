@@ -63,3 +63,6 @@ logs/
 mcp_config.json
 # El archivo de ejemplo SÍ se sube:
 # mcp_config.example.json  <-- este NO se ignora
+
+# Información interna del proyecto
+PROJECT_INTERNAL_KB.md
