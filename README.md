@@ -183,7 +183,7 @@ Este proyecto usa el paquete [`notebooklm-mcp-cli`](https://pypi.org/project/not
 
 ## Créditos
 
-- Motor MCP: [`notebooklm-mcp-cli`](https://pypi.org/project/notebooklm-mcp-cli/) por [persat](https://pypi.org/user/persat/)
+- Motor MCP: [`notebooklm-mcp-cli`](https://pypi.org/project/notebooklm-mcp-cli/)
 - Configuración multi-cuenta, scripts de autenticación y documentación: este repositorio
 
 ---
