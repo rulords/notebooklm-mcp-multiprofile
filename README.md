@@ -1,95 +1,74 @@
 # 🤖 NotebookLM MCP — Multi-Account Setup
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![notebooklm-mcp-cli](https://img.shields.io/badge/notebooklm--mcp--cli-0.2.7-green.svg)](https://pypi.org/project/notebooklm-mcp-cli/)
+[![notebooklm-mcp-cli 0.2.7](https://img.shields.io/badge/notebooklm--mcp--cli-0.2.7-green.svg)](https://pypi.org/project/notebooklm-mcp-cli/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Configuración lista para usar de **NotebookLM como servidor MCP** con soporte para **múltiples cuentas de Google simultáneas**. Diseñada para integrarse con cualquier cliente AI compatible con MCP (Antigravity, Claude Desktop, Cline, Continue, etc.).
+Configuración lista para usar de **Google NotebookLM como servidor MCP**, con soporte para **múltiples cuentas de Google simultáneas**.
 
-## ✨ ¿Qué incluye?
-
-- **Multi-cuenta nativa**: cada perfil de Google corre como un servidor MCP independiente
-- **~50 herramientas MCP**: gestión completa de notebooks, fuentes, notas, investigación profunda, generación de podcasts/videos/slides, exportación a Google Docs/Sheets
-- **Autenticación robusta**: método manual con DevTools (más confiable que Selenium/CDP)
-- **Scripts de utilidad**: inyección y verificación de cookies para cualquier perfil
-- **Sin credenciales en el repo**: todo lo sensible queda en el sistema local del usuario
+Compatible con cualquier cliente AI que soporte MCP: **Antigravity, Claude Desktop, Cline, Continue**, y otros.
 
 ---
 
-## 📋 Requisitos
+## ¿Qué hace esto?
 
-- Python 3.10 o superior (recomendado: 3.11)
-- Google Chrome instalado
-- Una o más cuentas de Google con acceso a NotebookLM
-- Un cliente AI compatible con MCP
+Convierte NotebookLM en un conjunto de ~50 herramientas que tu IA puede usar directamente:
 
-> ⚠️ **Python 3.12+**: requiere `setuptools` adicional por la eliminación de `distutils`. El `requirements.txt` lo incluye.
+- 📚 Gestionar notebooks (crear, listar, renombrar, eliminar, consultar)
+- 🔗 Agregar fuentes (URLs, archivos locales, Google Drive, texto)
+- 🎙️ Generar contenido (podcasts, videos, slides, informes, flashcards, quizzes)
+- 🔍 Investigación profunda automática (busca y agrega docenas de fuentes web)
+- 📝 Notas internas en notebooks (memoria persistente para el agente)
+- 🔄 Multi-cuenta: cada cuenta de Google corre como servidor MCP independiente
 
 ---
 
-## 🚀 Instalación
+## Instalación rápida
 
-### 1. Clonar el repositorio
+### 1. Clonar y crear entorno virtual
 
 ```bash
 git clone https://github.com/tu-usuario/notebooklm-mcp-multiprofile.git
 cd notebooklm-mcp-multiprofile
-```
 
-### 2. Crear entorno virtual e instalar dependencias
-
-```bash
-# Crear venv
 python -m venv .venv
 
-# Activar (Windows)
-.venv\Scripts\activate
+# Windows
+.venv\Scripts\pip install -r requirements.txt
 
-# Activar (macOS/Linux)
-source .venv/bin/activate
-
-# Instalar dependencias
-pip install -r requirements.txt
+# macOS / Linux
+.venv/bin/pip install -r requirements.txt
 ```
 
-### 3. Configurar autenticación
+### 2. Configurar autenticación
 
 Para cada cuenta de Google que quieras usar:
 
 ```bash
-# Cuenta personal
-python inject_profile.py --profile personal --email tu@gmail.com
+# Primero obtener cookies desde Chrome (ver docs/AUTHENTICATION.md)
+# Guardar en: personal_cookies.txt
 
-# Cuenta de trabajo
+python inject_profile.py --profile personal --email tu@gmail.com
 python inject_profile.py --profile work --email tu@empresa.com
 ```
 
-Ver **[docs/AUTHENTICATION.md](docs/AUTHENTICATION.md)** para instrucciones detalladas sobre cómo obtener las cookies desde Chrome DevTools.
+### 3. Registrar en tu cliente AI
 
-### 4. Configurar el cliente MCP
-
-Copia `mcp_config.example.json` como referencia y adapta las rutas:
+Edita el archivo de configuración MCP de tu cliente (ver `mcp_config.example.json`):
 
 ```json
 {
   "mcpServers": {
     "notebooklm_personal": {
-      "command": "C:/ruta/al/proyecto/.venv/Scripts/python.exe",
+      "command": "/ruta/al/proyecto/.venv/Scripts/python.exe",
       "args": ["-m", "notebooklm_tools.mcp.server"],
       "env": { "NLM_PROFILE": "personal" }
-    },
-    "notebooklm_work": {
-      "command": "C:/ruta/al/proyecto/.venv/Scripts/python.exe",
-      "args": ["-m", "notebooklm_tools.mcp.server"],
-      "env": { "NLM_PROFILE": "work" }
     }
   }
 }
 ```
 
-Ver **[docs/CONFIGURATION.md](docs/CONFIGURATION.md)** para ubicaciones del archivo según tu cliente AI.
-
-### 5. Verificar
+### 4. Verificar
 
 ```bash
 python verify_profile.py
@@ -97,109 +76,78 @@ python verify_profile.py
 
 ---
 
-## 🛠️ Herramientas disponibles
+## Documentación
 
-Una vez configurado, tu cliente AI tendrá acceso a ~50 herramientas por perfil:
-
-| Categoría | Herramientas |
+| Documento | Para quién |
 |:---|:---|
-| **Notebooks** | `notebook_list`, `notebook_create`, `notebook_get`, `notebook_describe`, `notebook_rename`, `notebook_delete`, `notebook_query` |
-| **Fuentes** | `source_add` (URL/texto/Drive/archivo), `source_describe`, `source_get_content`, `source_delete`, `source_sync_drive` |
-| **Notas** | `note` (create/list/update/delete) |
-| **Investigación** | `research_start`, `research_status`, `research_import` |
-| **Studio** | `studio_create` (audio/video/slides/infographic/report/flashcards/quiz/mind_map/data_table), `studio_status`, `studio_delete` |
-| **Exportación** | `export_artifact` (Google Docs/Sheets), `download_artifact` |
-| **Colaboración** | `notebook_share_public`, `notebook_share_invite` |
-| **Auth** | `refresh_auth`, `save_auth_tokens` |
+| [docs/AUTHENTICATION.md](docs/AUTHENTICATION.md) | Cómo obtener e inyectar cookies desde Chrome |
+| [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | Configurar el MCP en cada cliente AI |
+| [docs/AI_IMPLEMENTATION_GUIDE.md](docs/AI_IMPLEMENTATION_GUIDE.md) | **Para agentes AI**: guía completa de implementación paso a paso |
 
-Las herramientas se acceden como `mcp_notebooklm_<perfil>_<herramienta>`. Por ejemplo:
+---
+
+## Uso desde el cliente AI
 
 ```python
-# Listar notebooks del perfil personal
+# Listar notebooks
 mcp_notebooklm_personal_notebook_list(max_results=10)
 
-# Crear notebook en cuenta de trabajo
+# Crear notebook
 mcp_notebooklm_work_notebook_create(title="Investigación Q1 2026")
 
-# Generar podcast desde fuentes existentes
+# Agregar fuente URL
+mcp_notebooklm_personal_source_add(
+    notebook_id="...",
+    source_type="url",
+    url="https://ejemplo.com/articulo"
+)
+
+# Generar podcast
 mcp_notebooklm_personal_studio_create(
     notebook_id="...",
     artifact_type="audio",
     confirm=True
 )
+
+# Investigación profunda
+mcp_notebooklm_work_research_start(
+    query="inteligencia artificial en salud 2025",
+    mode="deep"
+)
 ```
 
 ---
 
-## 🔄 Mantenimiento: cookies expiradas
+## Mantenimiento
 
-Las cookies de Google expiran periódicamente. Cuando el MCP devuelva `RPC Error 16` o `Authentication expired`:
+Las cookies de Google expiran cada 1-4 semanas. Cuando el MCP devuelva `RPC Error 16`:
 
 ```bash
-# 1. Obtener cookies frescas (ver docs/AUTHENTICATION.md)
-# 2. Inyectar
-python inject_profile.py --profile <nombre> --email <tu@email.com>
+# Obtener cookies frescas (ver docs/AUTHENTICATION.md)
+python inject_profile.py --profile [nombre] --email [email]
 
-# 3. Recargar en el cliente AI
-mcp_notebooklm_<nombre>_refresh_auth()
+# Recargar en el cliente AI:
+mcp_notebooklm_[nombre]_refresh_auth()
 ```
 
 ---
 
-## 📁 Estructura del proyecto
+## Nota sobre versiones
 
-```
-notebooklm-mcp-multiprofile/
-├── inject_profile.py          # Inyectar cookies para cualquier perfil
-├── verify_profile.py          # Verificar estado de autenticación
-├── requirements.txt           # Dependencias Python
-├── mcp_config.example.json    # Plantilla de configuración MCP
-├── .gitignore                 # Protege cookies y credenciales
-├── docs/
-│   ├── AUTHENTICATION.md      # Guía detallada de autenticación
-│   ├── CONFIGURATION.md       # Configuración por cliente AI
-│   └── internal/              # Documentación histórica del proyecto
-└── .venv/                     # Entorno virtual (no se sube a GitHub)
-```
+> ⚠️ Este proyecto usa `notebooklm-mcp-cli==0.2.7` específicamente.  
+> Las versiones `notebooklm-mcp 2.x` son reescrituras incompletas con solo funciones básicas de chat.  
+> **No actualizar** sin verificar que el set completo de herramientas esté disponible.
 
 ---
 
-## ⚠️ Seguridad
+## Seguridad
 
-- **Nunca subas** archivos `*_cookies.txt` a GitHub (están en `.gitignore`)
-- Los perfiles se guardan en `~/.notebooklm-mcp-cli/profiles/` (fuera del repo)
-- El archivo `mcp_config.json` con tus rutas locales también está en `.gitignore`
-- Usa siempre `mcp_config.example.json` como referencia pública
-
----
-
-## 🐛 Solución de problemas
-
-| Síntoma | Causa | Solución |
-|:---|:---|:---|
-| `RPC Error 16` | Cookies expiradas | Re-inyectar con `inject_profile.py` |
-| `ModuleNotFoundError: distutils` | Python 3.12+ | `pip install setuptools` |
-| `Redirected to login` | Cookies inválidas | Obtener cookies frescas |
-| Servidor MCP no aparece | Ruta incorrecta en config | Verificar ruta al Python del `.venv` |
+- Los archivos `*_cookies.txt` están en `.gitignore` — nunca se suben a GitHub
+- Los perfiles se guardan en `~/.notebooklm-mcp-cli/` (fuera del repo)
+- `mcp_config.json` con tus rutas locales también está ignorado — usar `mcp_config.example.json` como plantilla
 
 ---
 
-## 📚 Documentación
-
-- [Guía de Autenticación](docs/AUTHENTICATION.md)
-- [Configuración por cliente AI](docs/CONFIGURATION.md)
-- [Documentación interna / histórica](docs/internal/)
-
----
-
-## 🙏 Créditos
-
-Basado en [notebooklm-mcp-cli](https://pypi.org/project/notebooklm-mcp-cli/) v0.2.7.
-
-> **Nota sobre versiones**: La versión `0.2.7` es la que incluye el set completo de ~50 herramientas. Versiones posteriores como `notebooklm-mcp v2.0.x` son reescrituras incompletas con solo funciones básicas de chat.
-
----
-
-## 📄 Licencia
+## Licencia
 
 MIT — ver [LICENSE](LICENSE)
