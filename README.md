@@ -132,11 +132,44 @@ mcp_notebooklm_[nombre]_refresh_auth()
 
 ---
 
-## Nota sobre versiones
+## Motor MCP: notebooklm-mcp-cli
 
-> ⚠️ Este proyecto usa `notebooklm-mcp-cli==0.2.7` específicamente.  
-> Las versiones `notebooklm-mcp 2.x` son reescrituras incompletas con solo funciones básicas de chat.  
-> **No actualizar** sin verificar que el set completo de herramientas esté disponible.
+Este proyecto usa el paquete [`notebooklm-mcp-cli`](https://pypi.org/project/notebooklm-mcp-cli/) (PyPI), versión `0.2.7`.
+
+> ⚠️ **Versión importante:** `0.2.7` es la que incluye el set completo de ~50 herramientas. Las versiones `notebooklm-mcp 2.x` son reescrituras incompletas con solo funciones básicas de chat. **No actualizar** sin verificar que el set completo esté disponible.
+
+### Herramientas disponibles (~50 en total)
+
+| Categoría | Herramienta | Descripción |
+|:---|:---|:---|
+| **Notebooks** | `notebook_list` | Lista todos los notebooks |
+| | `notebook_create` | Crea notebook vacío |
+| | `notebook_get` | Detalles y fuentes de un notebook |
+| | `notebook_describe` | Resumen IA del contenido |
+| | `notebook_rename` | Renombrar notebook |
+| | `notebook_delete` | Eliminar permanentemente |
+| | `notebook_query` | Consulta IA basada en las fuentes |
+| | `chat_configure` | Configurar estilo de respuesta |
+| **Fuentes** | `source_add` | Agregar URL, texto, Drive o archivo local |
+| | `source_describe` | Resumen IA de una fuente |
+| | `source_get_content` | Texto crudo de la fuente |
+| | `source_delete` | Eliminar fuente |
+| | `source_list_drive` | Listar fuentes de Drive con estado |
+| | `source_sync_drive` | Sincronizar fuentes desactualizadas |
+| **Notas** | `note` | CRUD de notas internas (create/list/update/delete) |
+| **Investigación** | `research_start` | Iniciar búsqueda web o Drive |
+| | `research_status` | Poll de progreso de investigación |
+| | `research_import` | Importar fuentes encontradas |
+| **Studio** | `studio_create` | Generar audio/video/slides/infographic/report/flashcards/quiz/mind_map/data_table |
+| | `studio_status` | Estado de generación y URLs |
+| | `studio_delete` | Eliminar artefacto generado |
+| | `download_artifact` | Descargar artefacto a archivo local |
+| | `export_artifact` | Exportar a Google Docs o Sheets |
+| **Compartir** | `notebook_share_public` | Habilitar link público |
+| | `notebook_share_invite` | Invitar colaborador por email |
+| | `notebook_share_status` | Ver configuración de compartido |
+| **Auth** | `refresh_auth` | Recargar tokens desde disco |
+| | `save_auth_tokens` | Guardar cookies manualmente |
 
 ---
 
@@ -145,6 +178,13 @@ mcp_notebooklm_[nombre]_refresh_auth()
 - Los archivos `*_cookies.txt` están en `.gitignore` — nunca se suben a GitHub
 - Los perfiles se guardan en `~/.notebooklm-mcp-cli/` (fuera del repo)
 - `mcp_config.json` con tus rutas locales también está ignorado — usar `mcp_config.example.json` como plantilla
+
+---
+
+## Créditos
+
+- Motor MCP: [`notebooklm-mcp-cli`](https://pypi.org/project/notebooklm-mcp-cli/) por [persat](https://pypi.org/user/persat/)
+- Configuración multi-cuenta, scripts de autenticación y documentación: este repositorio
 
 ---
 
