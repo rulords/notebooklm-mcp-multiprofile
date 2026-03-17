@@ -135,8 +135,8 @@ mcp_notebooklm_[PERFIL]_refresh_auth()
 "Las cookies del perfil [PERFIL] expiraron. Para renovarlas:
  1. Abre Chrome con tu cuenta [EMAIL]
  2. Ve a https://notebooklm.google.com/
- 3. F12 → Network → F5 → clic derecho en request → Copy as cURL
- 4. Extrae el valor del header 'cookie:' y guárdalo en [PERFIL]_cookies.txt
- 5. Ejecuta: python inject_profile.py --profile [PERFIL] --email [EMAIL]
+ 3. F12 → Network → F5 → clic derecho en el primer request → Copy as cURL (bash)
+ 4. Pega TODO el comando copiado en [PERFIL]_cookies.txt (el script extrae las cookies automáticamente)
+ 5. Ejecuta: .venv/bin/python inject_profile.py --profile [PERFIL] --email [EMAIL]
  6. Luego llama: mcp_notebooklm_[PERFIL]_refresh_auth()"
 ```
