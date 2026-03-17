@@ -31,12 +31,16 @@ Convierte NotebookLM en un conjunto de ~50 herramientas que tu IA puede usar dir
 git clone https://github.com/rulords/notebooklm-mcp-multiprofile.git
 cd notebooklm-mcp-multiprofile
 
-# Windows (Recomendado)
+# Windows
 Double click en setup.bat
 # O via Terminal: .\setup.bat
 
-# macOS / Linux (Manual)
-python -m venv .venv
+# macOS / Linux
+bash setup.sh
+# O via Terminal: ./setup.sh
+
+# Instalación manual:
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
