@@ -57,9 +57,9 @@ def get_tokens_from_cookies(cookies_list: list[dict]) -> tuple[str, str]:
 
     headers = {
         "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "Mozilla/5.0 (X11; Linux x86_64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/144.0.0.0 Safari/537.36"
+            "Chrome/146.0.0.0 Safari/537.36"
         ),
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
@@ -208,6 +208,18 @@ Ver docs/AUTHENTICATION.md para instrucciones completas.
     if not raw_cookies:
         print(f"❌ Error: El archivo '{cookies_file}' está vacío")
         sys.exit(1)
+
+    # Autodetectar y extraer cookies si es un comando cURL
+    if "curl " in raw_cookies.lower() and ("-H " in raw_cookies or "-b " in raw_cookies):
+        # Intentar extraer de headers -H 'cookie: ...'
+        cookie_match = re.search(r"-H\s+['\"]cookie:\s*([^'\"]+)['\"]", raw_cookies, re.IGNORECASE)
+        if not cookie_match:
+            # Reintentar con -b '...' (formato abreviado de cookies en curl)
+            cookie_match = re.search(r"-b\s+['\"]([^'\"]+)['\"]", raw_cookies, re.IGNORECASE)
+        
+        if cookie_match:
+            raw_cookies = cookie_match.group(1)
+            print("   ✨ Detectado comando cURL — Extrayendo string de cookies automáticamente")
 
     print(f"   Longitud del string: {len(raw_cookies)} caracteres")
 
