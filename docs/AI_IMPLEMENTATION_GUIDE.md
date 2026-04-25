@@ -185,12 +185,22 @@ Las cookies expiran cada 1-4 semanas. Síntomas:
 - `RPC Error 16: Authentication expired`
 - `No authentication found`
 - `Redirected to login`
+- **En Antigravity:** `server name notebooklm_X not found` → `MCP_SERVER_INIT_ERROR` en logs
+
+**Diagnóstico rápido — siempre empezar aquí:**
+```bash
+.venv/bin/python verify_profile.py
+```
+Si muestra `❌ EXPIRADO`, las cookies son la causa. No hace falta revisar otros logs.
 
 **Procedimiento de renovación:**
 1. Usuario extrae cookies frescas (repetir paso 4)
 2. Guardar en `[PERFIL]_cookies.txt`
 3. `python inject_profile.py --profile [PERFIL] --email [EMAIL]`
-4. `mcp_notebooklm_[PERFIL]_refresh_auth()`
+4. Hacer Refresh en el panel MCP del cliente AI (Antigravity: botón Refresh en MCP panel)
+5. Opcional: `mcp_notebooklm_[PERFIL]_refresh_auth()` si el server ya está corriendo
+
+**Nota WSL/Linux:** Si `verify_profile.py` muestra todos los perfiles ACTIVOS pero Antigravity sigue sin reconocer el servidor, verificar que el cliente AI haya reiniciado correctamente después del Refresh. Los `MCP_SERVER_INIT_ERROR` se registran solo al arrancar Antigravity.
 
 ---
 

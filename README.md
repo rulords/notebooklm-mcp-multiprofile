@@ -47,14 +47,18 @@ pip install -r requirements.txt
 
 ### 2. Configurar autenticación
 
-Para cada cuenta de Google que quieras usar:
+Existen dos métodos:
 
+#### A. Modo Elite (Recomendado para Agentes) 🚀
+Usa el binario nativo para abrir un navegador y loguearte en segundos:
 ```bash
-# Primero obtener cookies desde Chrome (ver docs/AUTHENTICATION.md)
-# Guardar en: personal_cookies.txt
+.venv/bin/nlm login --profile personal
+```
 
+#### B. Modo Manual (Legacy)
+Obtén cookies desde Chrome (ver [docs/AUTHENTICATION.md](docs/AUTHENTICATION.md)):
+```bash
 python inject_profile.py --profile personal --email tu@gmail.com
-python inject_profile.py --profile work --email tu@empresa.com
 ```
 
 ### 3. Registrar en tu cliente AI
@@ -126,8 +130,16 @@ mcp_notebooklm_work_research_start(
 
 ## Mantenimiento
 
-Las cookies de Google expiran cada 1-4 semanas. Cuando el MCP devuelva `RPC Error 16`:
+Las cookies de Google expiran cada 1-4 semanas. Síntomas de cookies expiradas:
+- MCP devuelve `RPC Error 16` o `Authentication expired`
+- **En Antigravity:** el servidor no aparece en el panel MCP ("server not found")
 
+**Diagnóstico rápido:**
+```bash
+python verify_profile.py
+```
+
+**Renovar cookies:**
 ```bash
 # Obtener cookies frescas (ver docs/AUTHENTICATION.md)
 python inject_profile.py --profile [nombre] --email [email]
